@@ -29,31 +29,87 @@ st.markdown("""
 /* ── Navbar ── */
 .navbar {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 0 2rem 0; border-bottom: 1px solid #1e293b;
-    margin-bottom: 2.5rem;
+    padding: 1.25rem 1.75rem;
+    background: rgba(15,23,42,0.7);
+    border: 1px solid rgba(99,102,241,0.15);
+    border-radius: 16px;
+    margin-bottom: 3rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
 }
-.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo { display: flex; align-items: center; gap: 12px; }
 .nav-logo-icon {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    width: 42px; height: 42px; border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
+    box-shadow: 0 0 22px rgba(99,102,241,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    flex-shrink: 0;
 }
-.nav-logo-text { font-size: 1.1rem; font-weight: 700; color: #f1f5f9; letter-spacing: -0.3px; }
+.nav-logo-icon svg { display: block; }
+.nav-logo-text {
+    font-size: 1.1rem; font-weight: 800; color: #f1f5f9;
+    letter-spacing: -0.5px; line-height: 1;
+}
+.nav-logo-text em {
+    font-style: normal;
+    background: linear-gradient(90deg, #818cf8, #06b6d4);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.nav-logo-sub {
+    font-size: 0.65rem; font-weight: 500; color: #475569;
+    letter-spacing: 0.5px; margin-top: 2px; text-transform: uppercase;
+}
 .nav-badge {
-    font-size: 0.72rem; font-weight: 600; color: #06b6d4;
-    background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);
-    padding: 4px 12px; border-radius: 999px; letter-spacing: 0.3px;
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.75rem; font-weight: 600; color: #94a3b8;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px 14px; border-radius: 999px; letter-spacing: 0.3px;
+}
+.nav-badge-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px rgba(34,197,94,0.7);
+    display: inline-block;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
 }
 
-/* ── Page title block ── */
-.page-title { margin-bottom: 2rem; }
-.page-title h1 {
-    font-size: 2.4rem; font-weight: 800; color: #f8fafc;
-    letter-spacing: -1px; margin: 0 0 6px 0; line-height: 1.2;
+/* ── Hero block ── */
+.hero {
+    text-align: center;
+    padding: 1rem 0 3rem 0;
+    position: relative;
 }
-.page-title h1 span { background: linear-gradient(90deg, #6366f1, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.page-title p { font-size: 1rem; color: #64748b; margin: 0; }
+.hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 1.4px;
+    text-transform: uppercase; color: #6366f1;
+    background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2);
+    padding: 6px 16px; border-radius: 999px; margin-bottom: 1.5rem;
+}
+.hero h1 {
+    font-size: 3.5rem; font-weight: 800; color: #f8fafc;
+    letter-spacing: -2px; margin: 0 0 1.25rem 0; line-height: 1.08;
+}
+.hero h1 .grad {
+    background: linear-gradient(90deg, #818cf8 0%, #38bdf8 55%, #34d399 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.hero-sub {
+    font-size: 1.05rem; color: #64748b; max-width: 520px;
+    margin: 0 auto; line-height: 1.7;
+}
+.hero-divider {
+    width: 60px; height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, #6366f1, #06b6d4);
+    margin: 2rem auto 0 auto;
+    opacity: 0.5;
+}
 
 /* ── Input cards ── */
 .input-card {
@@ -236,14 +292,37 @@ with st.sidebar:
 st.markdown("""
 <div class="navbar">
     <div class="nav-logo">
-        <div class="nav-logo-icon">🎯</div>
-        <div class="nav-logo-text">Resume Screener AI</div>
+        <div class="nav-logo-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="2" width="11" height="14" rx="2" fill="white" fill-opacity="0.2" stroke="white" stroke-opacity="0.6" stroke-width="1.2"/>
+                <line x1="6" y1="6" x2="11" y2="6" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                <line x1="6" y1="9" x2="11" y2="9" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                <line x1="6" y1="12" x2="9" y2="12" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="16" cy="15" r="4.5" fill="url(#gcirc)" stroke="white" stroke-opacity="0.3" stroke-width="1"/>
+                <path d="M14 15l1.5 1.5L18 13.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                    <linearGradient id="gcirc" x1="12" y1="11" x2="20" y2="19" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#34d399"/>
+                        <stop offset="1" stop-color="#06b6d4"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <div>
+            <div class="nav-logo-text">Resume<em>AI</em></div>
+            <div class="nav-logo-sub">Intelligent Screener</div>
+        </div>
     </div>
-    <div class="nav-badge">✦ Powered by Claude</div>
+    <div class="nav-badge">
+        <span class="nav-badge-dot"></span>
+        Powered by Claude
+    </div>
 </div>
-<div class="page-title">
-    <h1>Screen resumes with <span>AI precision</span></h1>
-    <p>Upload a resume and job description — get a deep match analysis in seconds</p>
+<div class="hero">
+    <div class="hero-eyebrow">✦ AI-Powered Hiring Intelligence</div>
+    <h1>Hire smarter with<br><span class="grad">AI-driven screening</span></h1>
+    <p class="hero-sub">Paste a job description, upload a resume — get an instant compatibility score, ranked strengths, skill gaps, and tailored interview questions.</p>
+    <div class="hero-divider"></div>
 </div>
 """, unsafe_allow_html=True)
 
