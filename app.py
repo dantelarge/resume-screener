@@ -287,7 +287,7 @@ def extract_text(f) -> str:
         d = docx.Document(data)
         return "\n".join(p.text for p in d.paragraphs)
     elif name.endswith(".txt"):
-        return data.read().decode("utf-8")
+        return data.read().decode("utf-8", errors="replace")
     return ""
 
 
@@ -317,11 +317,18 @@ Respond with valid JSON only — no markdown fences, no text outside the JSON:
             messages=[{"role": "user", "content": prompt}]
         )
     text = response.content[0].text.strip()
-    if text.startswith("```"):
-        text = text.split("```")[1]
-        if text.startswith("json"):
-            text = text[4:]
-    return json.loads(text.strip())
+    # Strip markdown fences if present
+    if "```" in text:
+        parts = text.split("```")
+        for part in parts:
+            part = part.strip()
+            if part.startswith("json"):
+                part = part[4:].strip()
+            try:
+                return json.loads(part)
+            except json.JSONDecodeError:
+                continue
+    return json.loads(text)
 
 
 def score_ring(score: int) -> str:
