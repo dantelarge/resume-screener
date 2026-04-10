@@ -14,259 +14,459 @@ st.set_page_config(page_title="Resume Screener AI", page_icon="🎯", layout="wi
 
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+    --bg:         #09080a;
+    --bg-2:       #100e14;
+    --bg-3:       #161220;
+    --border:     #211d2e;
+    --border-2:   #2e2940;
+    --amber:      #d4a853;
+    --amber-dim:  #a07a34;
+    --amber-glow: rgba(212,168,83,0.12);
+    --amber-ring: rgba(212,168,83,0.25);
+    --text-1:     #f0ece4;
+    --text-2:     #9b9192;
+    --text-3:     #5c5460;
+    --green:      #5ebd8a;
+    --green-dim:  rgba(94,189,138,0.08);
+    --red:        #c97070;
+    --red-dim:    rgba(201,112,112,0.08);
+    --blue:       #7b8fcf;
+    --blue-dim:   rgba(123,143,207,0.08);
+}
 
 * { box-sizing: border-box; }
-.stApp { font-family: 'Inter', sans-serif; background: #080e1a; color: #e2e8f0; }
+
+.stApp {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-1);
+}
+
 #MainMenu, footer, header { visibility: hidden; }
-.block-container { padding: 2rem 2rem 3rem 2rem !important; max-width: 1280px; }
+.block-container { padding: 2.5rem 2.5rem 4rem 2.5rem !important; max-width: 1320px; }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #111827; }
-::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-2); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
 
 /* ── Navbar ── */
 .navbar {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.25rem 1.75rem;
-    background: rgba(15,23,42,0.7);
-    border: 1px solid rgba(99,102,241,0.15);
-    border-radius: 16px;
-    margin-bottom: 3rem;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.75rem;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--amber);
+    border-radius: 0 0 14px 14px;
+    margin-bottom: 4rem;
 }
-.nav-logo { display: flex; align-items: center; gap: 12px; }
-.nav-logo-icon {
-    width: 42px; height: 42px; border-radius: 12px;
-    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 22px rgba(99,102,241,0.5), inset 0 1px 0 rgba(255,255,255,0.15);
-    flex-shrink: 0;
+.nav-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-1);
+    text-transform: uppercase;
 }
-.nav-logo-icon svg { display: block; }
-.nav-logo-text {
-    font-size: 1.1rem; font-weight: 800; color: #f1f5f9;
-    letter-spacing: -0.5px; line-height: 1;
+.nav-wordmark em {
+    font-style: italic;
+    color: var(--amber);
 }
-.nav-logo-text em {
-    font-style: normal;
-    background: linear-gradient(90deg, #818cf8, #06b6d4);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-.nav-logo-sub {
-    font-size: 0.65rem; font-weight: 500; color: #475569;
-    letter-spacing: 0.5px; margin-top: 2px; text-transform: uppercase;
+.nav-sub {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-top: 2px;
 }
 .nav-badge {
-    display: flex; align-items: center; gap: 7px;
-    font-size: 0.75rem; font-weight: 600; color: #94a3b8;
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    padding: 6px 14px; border-radius: 999px; letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    border: 1px solid var(--border-2);
+    padding: 7px 16px;
+    border-radius: 3px;
 }
 .nav-badge-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: #22c55e;
-    box-shadow: 0 0 8px rgba(34,197,94,0.7);
-    display: inline-block;
-    animation: pulse 2s infinite;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 7px rgba(94,189,138,0.7);
+    animation: pulse 2.5s infinite;
 }
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-/* ── Hero block ── */
+/* ── Hero ── */
 .hero {
     text-align: center;
-    padding: 1rem 0 3rem 0;
+    padding: 0 0 4rem 0;
     position: relative;
 }
 .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 1.4px;
-    text-transform: uppercase; color: #6366f1;
-    background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.2);
-    padding: 6px 16px; border-radius: 999px; margin-bottom: 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--amber-dim);
 }
 .hero h1 {
-    font-size: 3.5rem; font-weight: 800; color: #f8fafc;
-    letter-spacing: -2px; margin: 0 0 1.25rem 0; line-height: 1.08;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.8rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text-1);
+    letter-spacing: -0.5px;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.0;
 }
-.hero h1 .grad {
-    background: linear-gradient(90deg, #818cf8 0%, #38bdf8 55%, #34d399 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
+.hero h1 strong {
+    font-weight: 700;
+    font-style: normal;
+    color: var(--amber);
 }
 .hero-sub {
-    font-size: 1.05rem; color: #64748b; max-width: 520px;
-    margin: 0 auto; line-height: 1.7;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--text-2);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
 }
-.hero-divider {
-    width: 60px; height: 3px; border-radius: 2px;
-    background: linear-gradient(90deg, #6366f1, #06b6d4);
-    margin: 2rem auto 0 auto;
-    opacity: 0.5;
+.hero-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 2.5rem;
+}
+.hero-rule-line { flex: 1; max-width: 100px; height: 1px; background: var(--border-2); }
+.hero-rule-diamond {
+    width: 7px; height: 7px;
+    background: var(--amber);
+    transform: rotate(45deg);
+    opacity: 0.7;
 }
 
 /* ── Input cards ── */
-.input-card {
-    background: #0f172a; border: 1px solid #1e293b;
-    border-radius: 16px; padding: 24px;
+.input-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber-dim);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.input-card-label {
-    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.8px;
-    text-transform: uppercase; color: #64748b; margin-bottom: 12px;
-    display: flex; align-items: center; gap: 8px;
+.input-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
 }
-.input-card-label span { color: #94a3b8; font-size: 1rem; }
 
 /* ── Streamlit widget overrides ── */
 .stTextArea textarea {
-    background: #080e1a !important; border: 1px solid #1e293b !important;
-    border-radius: 10px !important; color: #e2e8f0 !important;
-    font-size: 0.9rem !important; font-family: 'Inter', sans-serif !important;
+    background: var(--bg-2) !important;
+    border: 1px solid var(--border) !important;
+    border-left: 2px solid var(--border-2) !important;
+    border-radius: 6px !important;
+    color: var(--text-1) !important;
+    font-size: 0.88rem !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    line-height: 1.7 !important;
 }
-.stTextArea textarea:focus { border-color: #6366f1 !important; box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important; }
+.stTextArea textarea:focus {
+    border-color: var(--border-2) !important;
+    border-left-color: var(--amber) !important;
+    box-shadow: none !important;
+}
 .stFileUploader {
-    background: #080e1a !important; border: 1px dashed #1e293b !important;
-    border-radius: 10px !important;
+    background: var(--bg-2) !important;
+    border: 1px dashed var(--border-2) !important;
+    border-radius: 6px !important;
 }
-[data-testid="stFileUploaderDropzone"] { background: #080e1a !important; }
-[data-testid="stFileUploaderDropzone"]:hover { border-color: #6366f1 !important; }
+[data-testid="stFileUploaderDropzone"] { background: var(--bg-2) !important; }
+[data-testid="stFileUploaderDropzone"]:hover { border-color: var(--amber-dim) !important; }
 
 /* ── Analyze button ── */
 .stButton > button {
-    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%) !important;
-    color: #fff !important; border: none !important;
-    border-radius: 12px !important; font-size: 1rem !important;
-    font-weight: 700 !important; padding: 0.75rem 2rem !important;
-    letter-spacing: 0.2px !important;
-    box-shadow: 0 4px 20px rgba(99,102,241,0.35) !important;
+    background: transparent !important;
+    color: var(--amber) !important;
+    border: 1px solid var(--amber-dim) !important;
+    border-radius: 4px !important;
+    font-family: 'JetBrains Mono', monospace !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+    padding: 0.8rem 2rem !important;
     transition: all 0.2s !important;
 }
 .stButton > button:hover {
-    box-shadow: 0 6px 28px rgba(99,102,241,0.5) !important;
-    transform: translateY(-1px) !important;
+    background: var(--amber-glow) !important;
+    border-color: var(--amber) !important;
+    box-shadow: 0 0 24px var(--amber-ring) !important;
 }
 
 /* ── Divider ── */
-.divider { border: none; border-top: 1px solid #1e293b; margin: 2rem 0; }
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
 
 /* ── Results header ── */
-.results-title {
-    font-size: 1.5rem; font-weight: 800; color: #f8fafc;
-    letter-spacing: -0.5px; margin-bottom: 0.25rem;
+.results-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 2rem;
 }
-.results-sub { font-size: 0.88rem; color: #475569; }
+.results-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-1);
+    letter-spacing: -0.3px;
+}
+.results-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-3);
+    letter-spacing: 0.1em;
+}
 
 /* ── Score card ── */
 .score-card {
-    background: #0f172a; border: 1px solid #1e293b;
-    border-radius: 20px; padding: 32px 24px;
-    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
 }
-.score-ring-wrap { position: relative; width: 160px; height: 160px; }
+.score-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    opacity: 0.6;
+}
+.score-ring-wrap { position: relative; width: 148px; height: 148px; }
 .score-ring-wrap svg { transform: rotate(-90deg); }
 .score-center {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%); text-align: center; line-height: 1;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
 }
-.score-num { font-size: 2.6rem; font-weight: 800; }
-.score-denom { font-size: 0.7rem; color: #475569; margin-top: 3px; font-weight: 500; }
+.score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+.score-denom {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--text-3);
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+}
 .score-bar-wrap { width: 100%; }
-.score-bar-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; margin-bottom: 6px; }
-.score-bar-track { background: #1e293b; border-radius: 999px; height: 6px; overflow: hidden; }
-.score-bar-fill { height: 100%; border-radius: 999px; }
+.score-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-3);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+}
+.score-bar-track { background: var(--border); border-radius: 1px; height: 3px; }
+.score-bar-fill { height: 100%; border-radius: 1px; }
 
 /* ── Verdict card ── */
 .verdict-card {
-    background: #0f172a; border: 1px solid #1e293b;
-    border-radius: 20px; padding: 28px 24px;
-    display: flex; flex-direction: column; gap: 16px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 }
-.verdict-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #475569; }
-.verdict-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 10px 22px; border-radius: 999px; font-weight: 700; font-size: 1rem;
+.verdict-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    opacity: 0.6;
 }
-.v-strong { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
-.v-yes    { background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.25); }
-.v-maybe  { background: rgba(234,179,8,0.12);  color: #facc15; border: 1px solid rgba(234,179,8,0.25); }
-.v-no     { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
-.match-level { font-size: 0.88rem; font-weight: 600; }
+.v-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 8px;
+}
+.verdict-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    line-height: 1.1;
+}
+.match-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+.v-rule { border: none; border-top: 1px solid var(--border); margin: 0; }
 
 /* ── Summary card ── */
 .summary-card {
-    background: #0f172a; border: 1px solid #1e293b;
-    border-radius: 20px; padding: 28px 24px; height: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px 28px;
+    height: 100%;
 }
-.summary-card p { font-size: 0.95rem; color: #94a3b8; line-height: 1.8; margin: 0; }
-.card-heading {
-    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.8px;
-    text-transform: uppercase; color: #475569; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 8px;
+.summary-card p {
+    font-size: 0.93rem;
+    color: var(--text-2);
+    line-height: 1.85;
+    margin: 0;
 }
-.card-heading-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.card-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.card-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
 /* ── List cards ── */
 .list-card {
-    background: #0f172a; border: 1px solid #1e293b;
-    border-radius: 20px; padding: 24px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    height: 100%;
 }
 .list-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 12px 14px; border-radius: 10px; margin-bottom: 8px;
-    font-size: 0.88rem; line-height: 1.6;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 6px;
+    margin-bottom: 7px;
+    font-size: 0.86rem;
+    line-height: 1.65;
 }
 .list-item:last-child { margin-bottom: 0; }
-.li-green { background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.15); color: #86efac; }
-.li-red   { background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.15); color: #fca5a5; }
-.li-blue  { background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.15); color: #a5b4fc; }
-.li-icon  { flex-shrink: 0; font-size: 0.8rem; font-weight: 800; min-width: 22px; margin-top: 1px; }
+.li-green { background: var(--green-dim); border-left: 2px solid var(--green); color: #a8d8be; }
+.li-red   { background: var(--red-dim);   border-left: 2px solid var(--red);   color: #d9a8a8; }
+.li-blue  { background: var(--blue-dim);  border-left: 2px solid var(--blue);  color: #b0bcdf; }
+.li-icon  {
+    flex-shrink: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    min-width: 20px;
+    margin-top: 3px;
+    letter-spacing: 0;
+}
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background: #0a1020 !important;
-    border-right: 1px solid #1e293b !important;
+    background: var(--bg-2) !important;
+    border-right: 1px solid var(--border) !important;
 }
 [data-testid="stSidebar"] .stMarkdown p,
-[data-testid="stSidebar"] .stMarkdown li { color: #94a3b8 !important; font-size: 0.88rem !important; }
-[data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 { color: #f1f5f9 !important; }
+[data-testid="stSidebar"] .stMarkdown li {
+    color: var(--text-2) !important;
+    font-size: 0.87rem !important;
+}
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 { color: var(--text-1) !important; }
 [data-testid="stSidebar"] .stTextInput input {
-    background: #0f172a !important; border: 1px solid #1e293b !important; color: #e2e8f0 !important;
-    border-radius: 8px !important;
+    background: var(--bg) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text-1) !important;
+    border-radius: 5px !important;
 }
-.sidebar-logo {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 0 20px 0; border-bottom: 1px solid #1e293b; margin-bottom: 20px;
+.sidebar-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-1);
+    padding: 4px 0 18px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
 }
-.sidebar-logo-icon {
-    width: 32px; height: 32px; border-radius: 8px;
-    background: linear-gradient(135deg, #6366f1, #06b6d4);
-    display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
-}
-.sidebar-logo-text { font-size: 0.95rem; font-weight: 700; color: #f1f5f9; }
+.sidebar-wordmark em { font-style: italic; color: var(--amber); }
 .step-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
 .step-num {
-    min-width: 22px; height: 22px; border-radius: 6px;
-    background: rgba(99,102,241,0.2); color: #818cf8;
-    font-size: 0.72rem; font-weight: 700;
+    min-width: 20px; height: 20px;
+    border: 1px solid var(--border-2);
+    color: var(--amber-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; font-weight: 700;
     display: flex; align-items: center; justify-content: center;
+    border-radius: 3px;
+    flex-shrink: 0;
 }
-.step-text { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; padding-top: 2px; }
+.step-text { font-size: 0.85rem; color: var(--text-2); line-height: 1.5; padding-top: 1px; }
 </style>
 """, unsafe_allow_html=True)
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("""
-    <div class="sidebar-logo">
-        <div class="sidebar-logo-icon">🎯</div>
-        <div class="sidebar-logo-text">ResumeAI</div>
-    </div>
+    <div class="sidebar-wordmark">Résumé<em>·AI</em></div>
     """, unsafe_allow_html=True)
 
     env_key = os.getenv("ANTHROPIC_API_KEY", "")
@@ -291,38 +491,25 @@ with st.sidebar:
 # ── Page header ────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="navbar">
-    <div class="nav-logo">
-        <div class="nav-logo-icon">
-            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="3" y="2" width="11" height="14" rx="2" fill="white" fill-opacity="0.2" stroke="white" stroke-opacity="0.6" stroke-width="1.2"/>
-                <line x1="6" y1="6" x2="11" y2="6" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-                <line x1="6" y1="9" x2="11" y2="9" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-                <line x1="6" y1="12" x2="9" y2="12" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
-                <circle cx="16" cy="15" r="4.5" fill="url(#gcirc)" stroke="white" stroke-opacity="0.3" stroke-width="1"/>
-                <path d="M14 15l1.5 1.5L18 13.5" stroke="white" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                <defs>
-                    <linearGradient id="gcirc" x1="12" y1="11" x2="20" y2="19" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#34d399"/>
-                        <stop offset="1" stop-color="#06b6d4"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-        <div>
-            <div class="nav-logo-text">Resume<em>AI</em></div>
-            <div class="nav-logo-sub">Intelligent Screener</div>
-        </div>
+    <div>
+        <div class="nav-wordmark">Résumé<em>·AI</em></div>
+        <div class="nav-sub">Intelligent Candidate Screener</div>
     </div>
     <div class="nav-badge">
         <span class="nav-badge-dot"></span>
-        Powered by Claude
+        Claude · Active
     </div>
 </div>
+
 <div class="hero">
-    <div class="hero-eyebrow">✦ AI-Powered Hiring Intelligence</div>
-    <h1>Hire smarter with<br><span class="grad">AI-driven screening</span></h1>
-    <p class="hero-sub">Paste a job description, upload a resume — get an instant compatibility score, ranked strengths, skill gaps, and tailored interview questions.</p>
-    <div class="hero-divider"></div>
+    <div class="hero-eyebrow">AI-Powered Hiring Intelligence</div>
+    <h1>Screen smarter,<br><strong>hire better.</strong></h1>
+    <p class="hero-sub">Paste a job description and upload a resume — get an instant compatibility score, ranked strengths, skill gaps, and tailored interview questions in seconds.</p>
+    <div class="hero-rule">
+        <div class="hero-rule-line"></div>
+        <div class="hero-rule-diamond"></div>
+        <div class="hero-rule-line"></div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -330,9 +517,7 @@ st.markdown("""
 col1, col2 = st.columns(2, gap="large")
 
 with col1:
-    st.markdown("""
-    <div class="input-card-label"><span>📋</span> Job Description</div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="input-label">Job Description</div>', unsafe_allow_html=True)
     job_description = st.text_area(
         label="jd", label_visibility="collapsed",
         placeholder="Paste the full job description here...\n\nExample:\nSenior Python Developer\n• 5+ years Python\n• FastAPI or Django\n• PostgreSQL & AWS",
@@ -340,9 +525,7 @@ with col1:
     )
 
 with col2:
-    st.markdown("""
-    <div class="input-card-label"><span>📄</span> Candidate Resume</div>
-    """, unsafe_allow_html=True)
+    st.markdown('<div class="input-label">Candidate Resume</div>', unsafe_allow_html=True)
     uploaded_file = st.file_uploader("Upload PDF, DOCX, or TXT", type=["pdf", "docx", "txt"])
     resume_text_input = st.text_area(
         label="Or paste resume text",
@@ -353,7 +536,7 @@ with col2:
 st.markdown("<br>", unsafe_allow_html=True)
 _, btn_col, _ = st.columns([2, 1, 2])
 with btn_col:
-    screen = st.button("🔍 Analyze Resume", use_container_width=True, type="primary")
+    screen = st.button("⟶  Analyze Resume", use_container_width=True, type="primary")
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
 def extract_text(f) -> str:
@@ -389,14 +572,13 @@ Respond with valid JSON only — no markdown fences, no text outside the JSON:
   "summary": "<2-3 sentence plain-English summary for a hiring manager>",
   "interview_questions": ["<question 1>", "<question 2>", "<question 3>"]
 }}"""
-    with st.spinner("🤖 Claude is analyzing the resume..."):
+    with st.spinner("Analyzing resume…"):
         response = client.messages.create(
             model="claude-haiku-4-5-20251001",
             max_tokens=1024,
             messages=[{"role": "user", "content": prompt}]
         )
     text = response.content[0].text.strip()
-    # Strip markdown fences if present
     if "```" in text:
         parts = text.split("```")
         for part in parts:
@@ -411,20 +593,19 @@ Respond with valid JSON only — no markdown fences, no text outside the JSON:
 
 
 def score_ring(score: int) -> str:
-    if score >= 80:   color = "#22c55e"
-    elif score >= 60: color = "#f59e0b"
-    else:             color = "#ef4444"
-    r = 66
+    if score >= 80:   color = "#5ebd8a"
+    elif score >= 60: color = "#d4a853"
+    else:             color = "#c97070"
+    r = 60
     circumference = 2 * 3.14159 * r
     offset = circumference * (1 - score / 100)
-    bar_pct = score
     return f"""
     <div class="score-card">
         <div class="score-ring-wrap">
-            <svg width="160" height="160" viewBox="0 0 160 160">
-                <circle cx="80" cy="80" r="{r}" fill="none" stroke="#1e293b" stroke-width="10"/>
-                <circle cx="80" cy="80" r="{r}" fill="none" stroke="{color}" stroke-width="10"
-                    stroke-linecap="round"
+            <svg width="148" height="148" viewBox="0 0 148 148">
+                <circle cx="74" cy="74" r="{r}" fill="none" stroke="#211d2e" stroke-width="8"/>
+                <circle cx="74" cy="74" r="{r}" fill="none" stroke="{color}" stroke-width="8"
+                    stroke-linecap="butt"
                     stroke-dasharray="{circumference:.1f}"
                     stroke-dashoffset="{offset:.1f}"/>
             </svg>
@@ -434,9 +615,12 @@ def score_ring(score: int) -> str:
             </div>
         </div>
         <div class="score-bar-wrap">
-            <div class="score-bar-label"><span>Match Score</span><span style="color:{color};font-weight:700">{score}%</span></div>
+            <div class="score-bar-label">
+                <span>Match Score</span>
+                <span style="color:{color};font-weight:600">{score}%</span>
+            </div>
             <div class="score-bar-track">
-                <div class="score-bar-fill" style="width:{bar_pct}%;background:{color}"></div>
+                <div class="score-bar-fill" style="width:{score}%;background:{color}"></div>
             </div>
         </div>
     </div>"""
@@ -444,24 +628,25 @@ def score_ring(score: int) -> str:
 
 def verdict_card(recommendation: str, score: int) -> str:
     mapping = {
-        "strong yes": ("v-strong", "✅ Strong Hire"),
-        "yes":        ("v-yes",    "👍 Hire"),
-        "maybe":      ("v-maybe",  "🤔 Consider"),
-        "no":         ("v-no",     "❌ Pass"),
+        "strong yes": ("#5ebd8a", "Strong Hire"),
+        "yes":        ("#d4a853", "Proceed to Interview"),
+        "maybe":      ("#c9a855", "Consider"),
+        "no":         ("#c97070", "Pass"),
     }
-    cls, label = mapping.get(recommendation.lower(), ("v-yes", recommendation.title()))
-    if score >= 80:   level, lcolor = "Excellent Match", "#4ade80"
-    elif score >= 60: level, lcolor = "Good Match", "#facc15"
-    else:             level, lcolor = "Weak Match", "#f87171"
+    color, label = mapping.get(recommendation.lower(), ("#d4a853", recommendation.title()))
+    if score >= 80:   level = "Excellent Match"
+    elif score >= 60: level = "Good Match"
+    else:             level = "Weak Match"
     return f"""
     <div class="verdict-card">
         <div>
-            <div class="verdict-label">Hiring Decision</div>
-            <span class="verdict-pill {cls}">{label}</span>
+            <div class="v-label">Hiring Decision</div>
+            <div class="verdict-text" style="color:{color}">{label}</div>
         </div>
+        <hr class="v-rule">
         <div>
-            <div class="verdict-label">Match Level</div>
-            <div class="match-level" style="color:{lcolor}">{level}</div>
+            <div class="v-label">Match Level</div>
+            <div class="match-text" style="color:{color}">{level}</div>
         </div>
     </div>"""
 
@@ -491,9 +676,9 @@ if screen:
 
             st.markdown('<hr class="divider">', unsafe_allow_html=True)
             st.markdown(f"""
-            <div style="margin-bottom:1.5rem">
-                <div class="results-title">📊 Analysis Report</div>
-                <div class="results-sub">AI-generated assessment · Match score: {score}/100</div>
+            <div class="results-header">
+                <div class="results-title">Analysis Report</div>
+                <div class="results-sub">Match score: {score} / 100</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -509,10 +694,7 @@ if screen:
             with r3:
                 st.markdown(f"""
                 <div class="summary-card">
-                    <div class="card-heading">
-                        <div class="card-heading-dot" style="background:#6366f1"></div>
-                        AI Summary
-                    </div>
+                    <div class="card-head">AI Summary</div>
                     <p>{result["summary"]}</p>
                 </div>
                 """, unsafe_allow_html=True)
@@ -525,10 +707,7 @@ if screen:
             with b1:
                 st.markdown("""
                 <div class="list-card">
-                    <div class="card-heading">
-                        <div class="card-heading-dot" style="background:#22c55e"></div>
-                        Top Strengths
-                    </div>
+                    <div class="card-head">Top Strengths</div>
                 """, unsafe_allow_html=True)
                 for s in result.get("top_strengths", []):
                     st.markdown(f'<div class="list-item li-green"><span class="li-icon">✓</span><span>{s}</span></div>', unsafe_allow_html=True)
@@ -537,10 +716,7 @@ if screen:
             with b2:
                 st.markdown("""
                 <div class="list-card">
-                    <div class="card-heading">
-                        <div class="card-heading-dot" style="background:#ef4444"></div>
-                        Skill Gaps
-                    </div>
+                    <div class="card-head">Skill Gaps</div>
                 """, unsafe_allow_html=True)
                 gaps = result.get("gaps", [])
                 if gaps:
@@ -553,17 +729,14 @@ if screen:
             with b3:
                 st.markdown("""
                 <div class="list-card">
-                    <div class="card-heading">
-                        <div class="card-heading-dot" style="background:#6366f1"></div>
-                        Interview Questions
-                    </div>
+                    <div class="card-head">Interview Questions</div>
                 """, unsafe_allow_html=True)
                 for i, q in enumerate(result.get("interview_questions", []), 1):
                     st.markdown(f'<div class="list-item li-blue"><span class="li-icon">Q{i}</span><span>{q}</span></div>', unsafe_allow_html=True)
                 st.markdown("</div>", unsafe_allow_html=True)
 
             st.markdown("<br>", unsafe_allow_html=True)
-            with st.expander("🔧 Raw JSON"):
+            with st.expander("Raw JSON"):
                 st.json(result)
 
         except json.JSONDecodeError:
